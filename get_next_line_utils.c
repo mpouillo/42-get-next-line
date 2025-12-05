@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:47:49 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/05 10:16:38 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/05 13:39:27 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 	size_t	len_s;
 
-	if (!s)
+	if (!s || len == 0)
 		return (NULL);
 	len_s = ft_strlen(s);
 	if (start >= len_s)
@@ -139,6 +139,8 @@ size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;

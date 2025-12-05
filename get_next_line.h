@@ -6,24 +6,21 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:52 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/05 10:16:45 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/05 10:44:56 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
-
 # define GET_NEXT_LINE_H
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stddef.h>
-#include <stdlib.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stddef.h>
+# include <stdlib.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
-
-# define EMPTY_MEMORY memory[0] == '\0'
 
 char	*get_next_line(int fd);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
