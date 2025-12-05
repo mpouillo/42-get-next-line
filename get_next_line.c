@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:25 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/05 14:56:58 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/05 15:05:49 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,14 @@ static char	*get_line_from_memory(char **memory, int sz)
 	return (NULL);
 }
 
+static char	*handle_error(char **memory, char *buf)
+{
+	free(buf);
+	free(*memory);
+	*memory = NULL;
+	return (NULL);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*memory;
@@ -61,17 +69,13 @@ char	*get_next_line(int fd)
 	sz = 1;
 	while (sz)
 	{
-		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+		buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 		if (!buf)
 			return (NULL);
 		sz = read(fd, buf, BUFFER_SIZE);
 		if (sz == -1)
-		{
-			free(buf);
-			free(memory);
-			memory = NULL;
-			return (NULL);
-		}
+			return (handle_error(&memory, buf));
+		buf[sz] = '\0';
 		move_buf_to_memory(&memory, buf);
 		line = get_line_from_memory(&memory, sz);
 		if (line)

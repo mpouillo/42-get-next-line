@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:47:49 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/05 14:26:42 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/05 15:06:09 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
 	buf = len_s1 + len_s2 + 1;
-	new_s = ft_calloc(buf, sizeof(char));
+	new_s = malloc(buf * sizeof(char));
 	if (!new_s)
 		return (NULL);
 	ft_strlcpy(new_s, s1, len_s1 + 1);
 	ft_strlcpy(new_s + len_s1, s2, len_s2 + 1);
+	new_s[buf - 1] = '\0';
 	return (new_s);
 }
 
@@ -97,42 +98,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	new_s[i] = '\0';
 	return (new_s);
-}
-
-void	ft_bzero(void *s, size_t n)
-{
-	size_t	i;
-	char	*p;
-
-	p = (char *) s;
-	i = 0;
-	while (i < n)
-	{
-		p[i] = '\0';
-		i++;
-	}
-}
-
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	void	*mem;
-	size_t	buf;
-
-	if (nmemb == 0 || size == 0)
-	{
-		mem = malloc(1);
-		if (!mem)
-			return (NULL);
-		return (mem);
-	}
-	buf = nmemb * size;
-	if (buf / nmemb != size)
-		return (NULL);
-	mem = malloc(buf);
-	if (!mem)
-		return (NULL);
-	ft_bzero(mem, buf);
-	return (mem);
 }
 
 size_t	ft_strlen(const char *str)
