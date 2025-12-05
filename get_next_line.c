@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:25 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/05 13:52:01 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/05 14:56:58 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static char	*get_line_from_memory(char **memory, int sz)
 		len++;
 	if ((*memory)[len] == '\n')
 		len += 1;
-	if ((len > 1 && (*memory)[len - 1] == '\n') || sz < BUFFER_SIZE)
+	if ((len >= 1 && (*memory)[len - 1] == '\n') || sz < BUFFER_SIZE)
 	{
-		next_lines = ft_substr(*memory, len, sz - len);
+		next_lines = ft_substr(*memory, len, ft_strlen(*memory) - len);
 		current_line = ft_substr(*memory, 0, len);
 		free(*memory);
 		*memory = next_lines;
@@ -48,7 +48,6 @@ static char	*get_line_from_memory(char **memory, int sz)
 	}
 	return (NULL);
 }
-
 
 char	*get_next_line(int fd)
 {
@@ -66,6 +65,13 @@ char	*get_next_line(int fd)
 		if (!buf)
 			return (NULL);
 		sz = read(fd, buf, BUFFER_SIZE);
+		if (sz == -1)
+		{
+			free(buf);
+			free(memory);
+			memory = NULL;
+			return (NULL);
+		}
 		move_buf_to_memory(&memory, buf);
 		line = get_line_from_memory(&memory, sz);
 		if (line)

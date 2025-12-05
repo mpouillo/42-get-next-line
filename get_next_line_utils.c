@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:47:49 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/05 13:39:27 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/05 14:26:42 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!new_s)
 		return (NULL);
 	i = 0;
-	while (s[start + i] && i < len)
+	while (i < len && s[start + i] && start + i < len_s)
 	{
 		new_s[i] = s[start + i];
 		i++;
