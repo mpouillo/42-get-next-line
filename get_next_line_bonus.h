@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:52 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/10 08:35:33 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/10 08:52:15 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -20,6 +20,10 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
+# endif
+
+# ifndef MEMORY_SIZE
+#  define MEMORY_SIZE 1024
 # endif
 
 char	*get_next_line(int fd);
