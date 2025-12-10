@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:25 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/10 08:38:02 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/10 10:55:19 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	int			sz;
 
-	if (fd < 0 || BUFFER_SIZE < 1 || fd > MEMORY_SIZE)
+	if (fd < 0 || BUFFER_SIZE < 1 || fd >= MEMORY_SIZE)
 		return (NULL);
 	sz = 1;
 	while (sz)
