@@ -12,19 +12,19 @@ In the *bonus* version of the project, the function is able to manage multiple f
 
 ### Instructions
 
-The function is prototyped like so:
+The prototype of `get_next_line()` is:
 ```c
 char *get_next_line(int fd)
 ```
 
-Compile with the following command, replacing *your_main.c* with a main function that calls get_next_line():
+Compile with the following command, replacing `your_main.c` with a main function that calls `get_next_line()`:
 ```shell
-cc -Wall -Werror -Extra get_next_line.c get_next_line_utils.c your_main.c
+cc -Wall -Werror -Wextra get_next_line.c get_next_line_utils.c your_main.c
 ```
 
 To compile with bonuses:
 ```shell
-cc -Wall -Werror -Extra get_next_line_bonus.c get_next_line_utils_bonus.c your_main.c
+cc -Wall -Werror -Wextra get_next_line_bonus.c get_next_line_utils_bonus.c your_main.c
 ```
 
 To change the allowed buffer size for read() calls, add the following compilation flag with a valid size: `-DBUFFER_SIZE=`
