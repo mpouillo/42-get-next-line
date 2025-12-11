@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:52 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/10 08:52:15 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/11 18:46:06 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,18 @@
 #  define BUFFER_SIZE 1024
 # endif
 
-# ifndef MEMORY_SIZE
-#  define MEMORY_SIZE 1024
+# ifndef FD_MAX
+#  define FD_MAX 1024
 # endif
 
+//		get_net_line_bonus.c
 char	*get_next_line(int fd);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s);
+
+//		get_next_line_utils_bonus.c
 size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *s);
+char	*join_memory_buffer(char const *memory, char const *buffer);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *s, int c);
 
 #endif
