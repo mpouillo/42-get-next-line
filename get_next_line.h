@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:52 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/10 08:35:33 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/13 08:10:08 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,14 @@
 #  define BUFFER_SIZE 1024
 # endif
 
+//		get_net_line.c
 char	*get_next_line(int fd);
-size_t	ft_strlcpy(char *dst, const char *src, size_t size);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(const char *s);
+
+//		get_next_line_utils.c
 size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *s);
+char	*join_memory_buffer(char const *memory, char const *buffer);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strchr(const char *s, int c);
 
 #endif
