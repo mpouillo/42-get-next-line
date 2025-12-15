@@ -6,7 +6,7 @@
 /*   By: mpouillo <mpouillo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:52 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/15 12:00:51 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:14:45 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@
 char	*get_next_line(int fd);
 
 //		get_next_line_utils.c
-size_t	ft_strlen(const char *str);
-char	*ft_strchr(const char *s, int c);
+char	*join_memory_buffer(char const *memory, char const *buffer);
+size_t	protected_strlen(const char *str);
+char	*protected_strchr(const char *s, int c);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 

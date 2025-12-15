@@ -6,13 +6,35 @@
 /*   By: mpouillo <mpouillo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:47:49 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/15 12:00:49 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:15:28 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+char	*join_memory_buffer(char const *memory, char const *buffer)
+{
+	char	*new_s;
+	size_t	len_mem;
+	size_t	len_buf;
+	size_t	i;
+
+	len_mem = protected_strlen(memory);
+	len_buf = protected_strlen(buffer);
+	new_s = malloc((len_mem + len_buf + 1) * sizeof(char));
+	if (!new_s)
+		return (NULL);
+	i = -1;
+	while (++i < len_mem)
+		new_s[i] = memory[i];
+	i = -1;
+	while (++i < len_buf)
+		new_s[len_mem + i] = buffer[i];
+	new_s[len_mem + len_buf] = '\0';
+	return (new_s);
+}
+
+size_t	protected_strlen(const char *str)
 {
 	size_t	i;
 
@@ -24,7 +46,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*protected_strchr(const char *s, int c)
 {
 	size_t	i;
 
@@ -45,7 +67,7 @@ char	*ft_strchr(const char *s, int c)
 char	*ft_strdup(const char *s)
 {
 	char			*new_str;
-	const size_t	len = ft_strlen(s);
+	const size_t	len = protected_strlen(s);
 	size_t			i;
 
 	new_str = malloc(sizeof(char) * (len + 1));
@@ -69,7 +91,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	if (!s || len == 0)
 		return (NULL);
-	len_s = ft_strlen(s);
+	len_s = protected_strlen(s);
 	if (start >= len_s)
 	{
 		len = 0;

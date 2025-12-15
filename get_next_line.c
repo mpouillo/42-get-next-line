@@ -6,49 +6,16 @@
 /*   By: mpouillo <mpouillo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:25 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/15 12:00:50 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/15 21:15:01 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
-
-char	*join_memory_buffer(char const *memory, char const *buffer)
-{
-	char	*new_s;
-	size_t	len_mem;
-	size_t	len_buf;
-	size_t	i;
-
-	len_mem = ft_strlen(memory);
-	len_buf = ft_strlen(buffer);
-	new_s = malloc((len_mem + len_buf + 1) * sizeof(char));
-	if (!new_s)
-		return (NULL);
-	i = 0;
-	while (memory && memory[i])
-	{
-		new_s[i] = memory[i];
-		i++;
-	}
-	i = 0;
-	while (buffer && buffer[i])
-	{
-		new_s[len_mem + i] = buffer[i];
-		i++;
-	}
-	new_s[len_mem + len_buf] = '\0';
-	return (new_s);
-}
+#include "get_next_line.h"
 
 static void	append_buffer_to_memory(char **memory, char *buffer)
 {
 	char	*tmp;
 
-	if (!buffer[0])
-	{
-		memory = NULL;
-		return ;
-	}
 	tmp = join_memory_buffer(*memory, buffer);
 	free(*memory);
 	*memory = tmp;
@@ -65,7 +32,7 @@ static char	*extract_line_from_memory(char **memory)
 		len++;
 	if (*memory && (*memory)[len] == '\n')
 		len++;
-	next_lines = ft_substr(*memory, len, ft_strlen(*memory) - len);
+	next_lines = ft_substr(*memory, len, protected_strlen(*memory) - len);
 	current_line = ft_substr(*memory, 0, len);
 	free(*memory);
 	*memory = next_lines;
@@ -84,7 +51,7 @@ char	*get_next_line(int fd)
 	if (!buffer)
 		return (NULL);
 	sz = 1;
-	while (sz && !ft_strchr(memory, '\n'))
+	while (sz && !protected_strchr(memory, '\n'))
 	{
 		sz = read(fd, buffer, BUFFER_SIZE);
 		if (sz < 0)
