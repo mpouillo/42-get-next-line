@@ -6,52 +6,34 @@
 /*   By: mpouillo <mpouillo@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:25 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/15 12:00:46 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/15 22:04:42 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-char	*join_memory_buffer(char const *memory, char const *buffer)
+static char	*handle_error(char **memory, char *buffer)
 {
-	char	*new_s;
-	size_t	len_mem;
-	size_t	len_buf;
-	size_t	i;
-
-	len_mem = ft_strlen(memory);
-	len_buf = ft_strlen(buffer);
-	new_s = malloc((len_mem + len_buf + 1) * sizeof(char));
-	if (!new_s)
-		return (NULL);
-	i = 0;
-	while (memory && memory[i])
-	{
-		new_s[i] = memory[i];
-		i++;
-	}
-	i = 0;
-	while (buffer && buffer[i])
-	{
-		new_s[len_mem + i] = buffer[i];
-		i++;
-	}
-	new_s[len_mem + len_buf] = '\0';
-	return (new_s);
+	free(buffer);
+	free(*memory);
+	*memory = NULL;
+	return (NULL);
 }
 
-static void	append_buffer_to_memory(char **memory, char *buffer)
+static int	append_buffer_to_memory(char **memory, char *buffer)
 {
 	char	*tmp;
 
-	if (!buffer[0])
-	{
-		memory = NULL;
-		return ;
-	}
 	tmp = join_memory_buffer(*memory, buffer);
+	if (!tmp)
+	{
+		free(*memory);
+		*memory = NULL;
+		return (ERROR);
+	}
 	free(*memory);
 	*memory = tmp;
+	return (SUCCESS);
 }
 
 static char	*extract_line_from_memory(char **memory)
@@ -60,15 +42,24 @@ static char	*extract_line_from_memory(char **memory)
 	char		*current_line;
 	size_t		len;
 
+	if (!*memory || !**memory)
+		return (handle_error(memory, NULL));
 	len = 0;
-	while (*memory && (*memory)[len] && (*memory)[len] != '\n')
+	while ((*memory)[len] && (*memory)[len] != '\n')
 		len++;
-	if (*memory && (*memory)[len] == '\n')
+	if ((*memory)[len] == '\n')
 		len++;
-	next_lines = ft_substr(*memory, len, ft_strlen(*memory) - len);
 	current_line = ft_substr(*memory, 0, len);
+	next_lines = ft_substr(*memory, len, protected_strlen(*memory) - len);
 	free(*memory);
 	*memory = next_lines;
+	if (!current_line || !next_lines)
+	{
+		free(current_line);
+		free(*memory);
+		*memory = NULL;
+		return (NULL);
+	}
 	return (current_line);
 }
 
@@ -82,20 +73,23 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
+	{
+		if (memory[fd])
+			return (handle_error(&memory[fd], buffer));
 		return (NULL);
+	}
 	sz = 1;
-	while (sz && !ft_strchr(memory[fd], '\n'))
+	while (sz && !protected_strchr(memory[fd], '\n'))
 	{
 		sz = read(fd, buffer, BUFFER_SIZE);
-		if (sz < 0)
+		if (sz == -1)
+			return (handle_error(&memory[fd], buffer));
+		buffer[sz] = '\0';
+		if (sz > 0 && append_buffer_to_memory(&memory[fd], buffer) == ERROR)
 		{
 			free(buffer);
-			free(memory[fd]);
-			memory[fd] = NULL;
 			return (NULL);
 		}
-		buffer[sz] = '\0';
-		append_buffer_to_memory(&memory[fd], buffer);
 	}
 	free(buffer);
 	return (extract_line_from_memory(&memory[fd]));
