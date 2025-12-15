@@ -3,14 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:25 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/13 08:09:33 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/15 11:07:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+char	*join_memory_buffer(char const *memory, char const *buffer)
+{
+	char	*new_s;
+	size_t	len_mem;
+	size_t	len_buf;
+	size_t	i;
+
+	len_mem = ft_strlen(memory);
+	len_buf = ft_strlen(buffer);
+	new_s = malloc((len_mem + len_buf + 1) * sizeof(char));
+	if (!new_s)
+		return (NULL);
+	i = 0;
+	while (memory && memory[i])
+	{
+		new_s[i] = memory[i];
+		i++;
+	}
+	i = 0;
+	while (buffer && buffer[i])
+	{
+		new_s[len_mem + i] = buffer[i];
+		i++;
+	}
+	new_s[len_mem + len_buf] = '\0';
+	return (new_s);
+}
 
 static void	append_buffer_to_memory(char **memory, char *buffer)
 {
