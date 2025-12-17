@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpouillo <mpouillo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 14:47:49 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/15 21:26:32 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/17 07:57:32 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+size_t	protected_strlen(const char *str)
+{
+	size_t	i;
+
+	if (!str)
+		return (0);
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 char	*join_memory_buffer(char const *memory, char const *buffer)
 {
@@ -32,18 +44,6 @@ char	*join_memory_buffer(char const *memory, char const *buffer)
 		new_s[len_mem + i] = buffer[i];
 	new_s[len_mem + len_buf] = '\0';
 	return (new_s);
-}
-
-size_t	protected_strlen(const char *str)
-{
-	size_t	i;
-
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 char	*protected_strchr(const char *s, int c)

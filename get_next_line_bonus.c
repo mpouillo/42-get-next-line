@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpouillo <mpouillo@student.42lyon.fr>      +#+  +:+       +#+        */
+/*   By: mpouillo <mpouillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 12:09:25 by mpouillo          #+#    #+#             */
-/*   Updated: 2025/12/15 22:04:42 by mpouillo         ###   ########.fr       */
+/*   Updated: 2025/12/17 07:48:28 by mpouillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buffer)
-	{
-		if (memory[fd])
-			return (handle_error(&memory[fd], buffer));
-		return (NULL);
-	}
+		return (handle_error(&memory[fd], buffer));
 	sz = 1;
 	while (sz && !protected_strchr(memory[fd], '\n'))
 	{
